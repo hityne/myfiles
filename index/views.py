@@ -15,15 +15,19 @@ def index(request):
     filenames = []
     for each in os.listdir(repo_path):
         if each.startswith('.') is False and each.startswith('~') is False:
-            if os.path.isdir(os.path.join(repo_path, each)):
+            mypath = os.path.join(repo_path, each)
+            if os.path.isdir(mypath):
                 dirnames.append(each)
-            elif os.path.isfile(os.path.join(repo_path, each)):
-                filenames.append(each)
+            elif os.path.isfile(mypath):
+                myname = each
+                print(time.localtime(os.path.getmtime(mypath)))
+                # mytime = time.strftime('%y-%m-%d %H:%M:%S', time.mktime(os.path.getmtime(mypath)))
+                mysize = str(os.path.getsize(mypath)/1024)+' KB'
+                filenames.append({'name':myname, 'time': 222, 'size': mysize})
     data['dirs'] = dirnames
     data['files'] = filenames
-    print(data)
 
-    return HttpResponse(json.dumps(data))
+    return render(request, 'index.html', {'data': data})
 
 
 def deep(request, name):
