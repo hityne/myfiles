@@ -10,6 +10,7 @@ urlpatterns = [
     re_path(r'^(?P<path>.+\.jpeg)', serve, {"document_root":settings.REPO_ROOT}),
     re_path(r'^(?P<path>.+\.gif)', serve, {"document_root":settings.REPO_ROOT}),
     re_path(r'^(?P<path>.+\.png)', serve, {"document_root":settings.REPO_ROOT}),
+    re_path(r'^(?P<path>.+\.pdf)', serve, {"document_root":settings.REPO_ROOT}),
     re_path(r'^(?P<path>.+\.mp4)', serve, {"document_root":settings.REPO_ROOT}),
     re_path(r'^(.*)$', views.deep),
 

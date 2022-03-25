@@ -12,7 +12,7 @@
     <ul class="layui-nav" style="padding-left:0;">
 <div style="width: 70%; margin: 0 auto;">
   <li class="layui-nav-item">
-    <a href="/" style="margin-left:0;padding-left:5px; font-size:x-large;color:white; font-family:'Microsoft YaHei UI'; font-weight: bold;">Myfiles</a>
+    <a href="/" style="margin-left:0;padding-left:5px; font-size:x-large;color:white; font-family:'Microsoft YaHei UI'; font-weight: bold;"><i class="layui-icon layui-icon-component" style="font-size: 25px; color: #1E9FFF;"></i> Myfiles</a>
 {#      <span class="layui-badge">9</span>#}
 {#  </li>#}
 {#  <li class="layui-nav-item">#}
@@ -76,7 +76,7 @@
             <td><a href="{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-file"></i>  {{ each.name }}</a></td>
           <td>{{ each.time }}</td>
           <td>{{ each.size }}</td>
-           <td><a download href="{{ each.path }}/{{ each.name }}">下载</a> <a href="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow">删除</a></td>
+           <td><a download href="{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-download-circle" style="font-size:20px;color: #1E9FFF; margin-right: 7px;" title="下载"></i></a> <a href="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="layui-icon layui-icon-delete" style="font-size:20px;color: #eb7350;"></i></a></td>
         </tr>
       {% endfor %}
 
