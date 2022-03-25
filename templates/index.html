@@ -10,7 +10,7 @@
 <div>
 
     <ul class="layui-nav" style="padding-left:0;">
-<div style="width: 60%; margin: 0 auto;">
+<div style="width: 70%; margin: 0 auto;">
   <li class="layui-nav-item">
     <a href="/" style="margin-left:0;padding-left:5px; font-size:x-large;color:white; font-family:'Microsoft YaHei UI'; font-weight: bold;">Myfiles</a>
 {#      <span class="layui-badge">9</span>#}
@@ -32,7 +32,7 @@
 
 
 </div>
-<div style="width: 60%; margin: 0 auto; margin-top: 20px;">
+<div style="width: 70%; margin: 0 auto; margin-top: 20px;">
     <div>
         <span>当前位置：</span><span>
         <a href="/">首页</a></span>
@@ -52,23 +52,23 @@
         <tr>
           <th style="width: 50%;">文件名</th>
           <th style="width: 20%;">修改时间</th>
-          <th style="width: 10%;">文件大小</th>
-            <th style="width: 20%;">操作</th>
+          <th style="width: 15%;">文件大小</th>
+            <th style="width: 15%;">操作</th>
         </tr>
       </thead>
       <tbody>
        <tr>
           <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }} {% endfor %}{% else %}/{% endif %}"><i class="layui-icon layui-icon-export"></i> 上一级 </a></td>
-          <td>{{ each.time }}</td>
-          <td>{{ each.size }}</td>
-           <td>***</td>
+          <td></td>
+          <td></td>
+           <td></td>
         </tr>
       {% for each in  data.dirs %}
            <tr>
           <td><a href="{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-release"></i>  {{ each.name }}</a></td>
           <td>{{ each.time }}</td>
           <td>{{ each.size }}</td>
-           <td>***</td>
+           <td> - </td>
         </tr>
       {% endfor %}
        {% for each in data.files %}
@@ -76,7 +76,7 @@
             <td><a href="{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-file"></i>  {{ each.name }}</a></td>
           <td>{{ each.time }}</td>
           <td>{{ each.size }}</td>
-           <td>***</td>
+           <td><a download href="{{ each.path }}/{{ each.name }}">下载</a> <a href="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow">删除</a></td>
         </tr>
       {% endfor %}
 
