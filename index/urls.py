@@ -5,6 +5,8 @@ from myfiles import settings
 
 urlpatterns = [
     #path('', views.index),
+    path('login/', views.user_login),
+    path('logout/', views.user_logout),
     re_path(r'^del', views.delete),
     re_path(r'^(?P<path>.+\.jpg)', serve, {"document_root":settings.REPO_ROOT}),
     re_path(r'^(?P<path>.+\.jpeg)', serve, {"document_root":settings.REPO_ROOT}),

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<title>Myfiels-请登录</title>
+
+<link rel="stylesheet" href="/static/style.css">
+        <!-- Bootstrap core CSS -->
+
+
+
+
+</head>
+
+
+<body>
+
+
+<form method="POST" action="/login/" id="login-form" class="login-form" autocomplete="off" role="main">
+ {% csrf_token %}
+
+    {% if message %}
+<div align="center">
+        <div class="alert alert-warning" role="alert"  style="width: 100%; " align="center">
+        <strong>Warning!</strong> {{ message }}
+        </div>
+</div>
+{% endif %}
+
+  <h1 class="a11y-hidden">请登录</h1>
+  <div>
+    <label class="label-email">
+      <input name="username" type="text" class="text" placeholder="用户名" tabindex="1" required />
+      <span class="required">用户名</span>
+    </label>
+  </div>
+  <input type="checkbox" name="show-password" class="show-password a11y-hidden" id="show-password" tabindex="3" />
+  <label class="label-show-password" for="show-password">
+    <span>记住密码？</span>
+  </label>
+  <div>
+    <label class="label-password">
+      <input type="text" class="text" name="password" placeholder="密码" tabindex="2" required />
+      <span class="required">密码</span>
+    </label>
+  </div>
+<input type="hidden" value="{{ next }}" name="next" />
+  <input type="submit" value="登录" />
+  <div class="email">
+{#    <a href="#">忘记密码？</a><div style="margin-top:10px;">#}
+      <a href="/user/register/">没有账号？</a></div>
+  </div>
+  <figure aria-hidden="true">
+    <div class="person-body"></div>
+    <div class="neck skin"></div>
+    <div class="head skin">
+      <div class="eyes"></div>
+      <div class="mouth"></div>
+    </div>
+    <div class="hair"></div>
+    <div class="ears"></div>
+    <div class="shirt-1"></div>
+    <div class="shirt-2"></div>
+  </figure>
+</form>
+
+
+
+
+</body>
+</html>
