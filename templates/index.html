@@ -2,37 +2,78 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>table模块快速使用</title>
+  <title>文件管理器 Myfiles</title>
   <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
 </head>
 <body>
-<div style="width: 80%; margin: 0 auto; margin-top: 20px;">
+
+<div>
+
+    <ul class="layui-nav" style="padding-left:0;">
+<div style="width: 60%; margin: 0 auto;">
+  <li class="layui-nav-item">
+    <a href="/" style="margin-left:0;padding-left:5px; font-size:x-large;color:white; font-family:'Microsoft YaHei UI'; font-weight: bold;">Myfiles</a>
+{#      <span class="layui-badge">9</span>#}
+{#  </li>#}
+{#  <li class="layui-nav-item">#}
+{#    <a href="">个人中心<span class="layui-badge-dot"></span></a>#}
+{#  </li>#}
+{#  <li class="layui-nav-item">#}
+{#    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>#}
+{#    <dl class="layui-nav-child">#}
+{#      <dd><a href="javascript:;">修改信息</a></dd>#}
+{#      <dd><a href="javascript:;">安全管理</a></dd>#}
+{#      <dd><a href="javascript:;">退了</a></dd>#}
+{#    </dl>#}
+{#  </li>#}
+</div>>
+</ul>
+
+
+
+</div>
+<div style="width: 60%; margin: 0 auto; margin-top: 20px;">
+    <div>
+        <span>当前位置：</span><span>
+        <a href="/">首页</a></span>
+    {% if data.path.0 != '' %}
+        {% for each in data.path %}
+            <span>/ {{ each }}</span>
+        {% endfor %}
+    {% endif %}
+    </div>
     <table class="layui-table">
 {#      <colgroup>#}
 {#        <col width="150">#}
 {#        <col width="200">#}
 {#        <col>#}
-      </colgroup>
+{#      </colgroup>#}
       <thead>
         <tr>
-          <th style="width: 100px;">文件名</th>
-          <th style="width: 60px;">修改时间</th>
-          <th style="width:60px;">文件大小</th>
-            <th style="width:80px;">操作</th>
+          <th style="width: 50%;">文件名</th>
+          <th style="width: 20%;">修改时间</th>
+          <th style="width: 10%;">文件大小</th>
+            <th style="width: 20%;">操作</th>
         </tr>
       </thead>
       <tbody>
+       <tr>
+          <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }} {% endfor %}{% else %}/{% endif %}"><i class="layui-icon layui-icon-export"></i> 上一级 </a></td>
+          <td>{{ each.time }}</td>
+          <td>{{ each.size }}</td>
+           <td>***</td>
+        </tr>
       {% for each in  data.dirs %}
            <tr>
-               <td><a href="{{ each }}">{{ each }}</a></td>
-          <td>***</td>
-          <td>***</td>
+          <td><a href="{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-release"></i>  {{ each.name }}</a></td>
+          <td>{{ each.time }}</td>
+          <td>{{ each.size }}</td>
            <td>***</td>
         </tr>
       {% endfor %}
        {% for each in data.files %}
            <tr>
-            <td><a href="{{ each }}">{{ each.name }}</a></td>
+            <td><a href="{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-file"></i>  {{ each.name }}</a></td>
           <td>{{ each.time }}</td>
           <td>{{ each.size }}</td>
            <td>***</td>
