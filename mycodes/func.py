@@ -16,8 +16,7 @@ def get_data(repo_path, name):
             elif os.path.isfile(mypath):
                 myname = each
                 mytime = time.strftime('%y-%m-%d %H:%M:%S', time.localtime(os.path.getmtime(mypath)))
-                mysize = str(round(os.path.getsize(mypath) / 1024)) + ' KB'
+                mysize = str(format(round(os.path.getsize(mypath) / 1024), ',')) + ' KB'
                 data['files'].append({'name': myname, 'time': mytime, 'size': mysize, 'path': name})
 
     return data
-
