@@ -8,6 +8,9 @@ def get_data(repo_path, file_path):
     for each in os.listdir(path):
         if each.startswith('.') is False and each.startswith('~') is False:
             mypath = os.path.join(path, each)
+            print('file_path:', file_path)
+            if file_path == '':
+                print(True)
             if os.path.isdir(mypath):
                 myname = each
                 mytime = time.strftime('%y-%m-%d %H:%M:%S', time.localtime(os.path.getmtime(mypath)))
