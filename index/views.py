@@ -61,7 +61,7 @@ def user_login(request):
 
             login(request, user)
             # 这一步就是登陆，login会与数据库交互，会创建session使下次登陆不需验证
-            print(user.is_authenticated)
+            # print(user.is_authenticated)
             # return HttpResponse("Hello, {}".format(user.username))
 
             ########
