@@ -28,7 +28,7 @@
       <tbody>
       {% if request.path != '/' %}
        <tr>
-          <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }}{% endfor %}{% else %}/{% endif %}"><i class="layui-icon layui-icon-prev" ></i> .. {{ data.path }}</a></td>
+          <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }}{% endfor %}{% else %}/{% endif %}"><i class="layui-icon layui-icon-prev" ></i> .. </a></td>
           <td></td>
           <td></td>
            <td></td>
