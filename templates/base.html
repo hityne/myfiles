@@ -13,7 +13,7 @@
 <body>
 
 <div>
-
+{#导航#}
     <ul class="layui-nav" style="padding-left:0; padding-right:0; background-color: #00565B;">
 
     <div class="layui-container" >
@@ -45,9 +45,26 @@
 </ul>
 
 </div>
+{#导航END#}
+
 
 {% block content %}
 {% endblock %}
+
+{#footer#}
+ 	<div class = "layui-footer" style="background-color: #2E2D3C; position: absolute; height: 50px; bottom:0;width: 100%;">
+		<div class = "layui-container" >
+			<div class = "layui-row">
+				<div class = "layui-col-lg12" style="line-height: 50px;">
+                    <div style="color: #FFFFFF; ">
+				Copyright © 2022 Powered by <a href="https://github.com/hityne/myfiles" target = "_blank" style="color: #FFF;">Myfiles</a>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{#footer END#}
+
 
 
 </body>
