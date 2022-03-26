@@ -48,7 +48,7 @@
            <td>
                <a download href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-download-circle" style="font-size:20px;color: #1E9FFF; margin-right: 7px;" title="下载"></i></a>
                <a href="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="layui-icon layui-icon-delete" style="font-size:20px;color: #eb7350;"></i></a>
-                <a href="/play/?file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}">播放</a>
+                {% if each.name|slice:'-3:' == 'mp4' %}<a href="/play/?file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}">播放</a>{% endif %}
            </td>
         </tr>
       {% endfor %}
