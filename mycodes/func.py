@@ -1,4 +1,5 @@
 import os
+import re
 import time
 
 
@@ -24,3 +25,19 @@ def get_data(repo_path, file_path):
 
     return data
 
+
+# 视频播放
+
+
+def file_iterator(file_name, chunk_size=8192, offset=0, length=None):
+    with open(file_name, "rb") as f:
+        f.seek(offset, os.SEEK_SET)
+        remaining = length
+        while True:
+            bytes_length = chunk_size if remaining is None else min(remaining, chunk_size)
+            data = f.read(bytes_length)
+            if not data:
+                break
+            if remaining:
+                remaining -= len(data)
+            yield data

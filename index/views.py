@@ -1,6 +1,7 @@
 import json
 import os
 import time
+import re
 
 from django.contrib.auth import authenticate, login, logout
 from django.http import FileResponse, HttpResponseRedirect
@@ -9,9 +10,12 @@ from django.shortcuts import render
 # Create your views here.
 from django.utils.http import urlquote
 
-from mycodes.func import get_data
+from mycodes.func import get_data, file_iterator
 
 from django.contrib.auth.decorators import login_required
+from wsgiref.util import FileWrapper
+from django.http import StreamingHttpResponse
+import mimetypes
 
 
 # def index(request):
@@ -96,3 +100,39 @@ def delete(request):
 def user_logout(request):
     logout(request)
     return redirect('/login/')
+
+def player(request):
+    file_path = request.GET.get('file_path')
+    return render(request, 'player.html', locals())
+
+def stream_video(request, path):
+    """ responds to the video file as """
+    # path = 'static/media/show.mp4'  # 此为我的视频路径
+    path=os.path.join('./myrepo/',path)
+    print(path)
+    range_header = request.META.get('HTTP_RANGE', '').strip()
+    range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
+    range_match = range_re.match(range_header)
+    size = os.path.getsize(path)
+    content_type, encoding = mimetypes.guess_type(path)
+    content_type = content_type or 'application/octet-stream'
+    if range_match:
+        first_byte, last_byte = range_match.groups()
+        if first_byte:
+            first_byte = int(first_byte)
+        else:
+            first_byte = 0
+        last_byte = first_byte + 1024 * 1024 * 8  # 8M per piece, the maximum volume of the response body
+        if last_byte > size:
+            last_byte = size - 1
+        length = last_byte - first_byte + 1
+        resp = StreamingHttpResponse(file_iterator(path, offset=first_byte, length=length), status=206,
+                                     content_type=content_type)
+        resp['Content-Length'] = str(length)
+        resp['Content-Range'] = 'bytes %s-%s/%s' % (first_byte, last_byte, size)
+    else:
+        # When the video stream is not obtained, the entire file is returned in the generator mode to save memory.
+        resp = StreamingHttpResponse(FileWrapper(open(path, 'rb')), content_type=content_type)
+        resp['Content-Length'] = str(size)
+    resp['Accept-Ranges'] = 'bytes'
+    return resp
