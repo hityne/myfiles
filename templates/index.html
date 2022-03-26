@@ -4,7 +4,7 @@
 
     <div>
         <span>当前位置：</span><span>
-        <a href="/">首页</a></span>
+        <a href="/"><i class="layui-icon layui-icon-home" ></i></a></span>
     {% if data.path.0 != '' %}
         {% for each in data.path %}
             <span>/ {{ each }}</span>
@@ -26,12 +26,14 @@
         </tr>
       </thead>
       <tbody>
+      {% if request.path != '/' %}
        <tr>
-          <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }} {% endfor %}{% else %}/{% endif %}"><i class="layui-icon layui-icon-export"></i> 上一级 </a></td>
+          <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }} {% endfor %}{% else %}/{% endif %}"><i class="layui-icon layui-icon-prev" ></i> .. </a></td>
           <td></td>
           <td></td>
            <td></td>
         </tr>
+      {% endif %}
       {% for each in  data.dirs %}
            <tr>
           <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-release"></i> {{ each.name }}</a></td>

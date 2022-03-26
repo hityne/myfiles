@@ -3,20 +3,31 @@ import re
 import time
 
 
+def get_file_type(file_name):
+    file_type = file_name[file_name.rfind('.')+1:]
+    if file_type == 'mp4':
+        file_icon = 'layui-icon-video'
+    elif file_type == 'mp3':
+        file_icon = 'layui-icon-headset'
+    elif file_type == 'layui-icon-tabs'
+    else:
+        file_icon = 'layui-icon-file'
+    return file_icon
+
+
 def get_data(repo_path, file_path):
     path = os.path.join(repo_path, file_path)
     data = {'dirs': [], 'files': [], 'path': file_path.split('/')}
     for each in os.listdir(path):
         if each.startswith('.') is False and each.startswith('~') is False:
             mypath = os.path.join(path, each)
-            print('file_path:', file_path)
-            if file_path == '':
-                print(True)
             if os.path.isdir(mypath):
                 myname = each
                 mytime = time.strftime('%y-%m-%d %H:%M:%S', time.localtime(os.path.getmtime(mypath)))
                 mysize = '-'
-                data['dirs'].append({'name': myname, 'time': mytime, 'size': mysize, 'path': file_path})
+                mytype = get_file_type(each)
+                data['dirs'].append({'name': myname, 'time': mytime, 'size': mysize, 'path': file_path, 'type': mytype})
+
             elif os.path.isfile(mypath):
                 myname = each
                 mytime = time.strftime('%y-%m-%d %H:%M:%S', time.localtime(os.path.getmtime(mypath)))
@@ -41,3 +52,5 @@ def file_iterator(file_name, chunk_size=8192, offset=0, length=None):
             if remaining:
                 remaining -= len(data)
             yield data
+
+
