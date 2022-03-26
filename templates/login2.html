@@ -4,17 +4,17 @@
         <div class="layui-container" style="margin-top: 4em;">
 		  	<div class="layui-row">
 		    	<div class="layui-col-lg12"">
-    <form class="layui-form" action="/login/" method="post" style="width: 50%; margin: 0 auto;">
+    <form class="layui-form" action="/login/" method="post" style="margin: 0 auto;">
          {% csrf_token %}
   <div class="layui-form-item" >
     <label class="layui-form-label">用户名</label>
-    <div class="layui-input-block" style="width: 50%;">
+    <div class="layui-input-block" style="width: 30%;">
       <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">密码</label>
-    <div class="layui-input-block" style="width: 50%;">
+    <div class="layui-input-block" style="width: 30%;">
       <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
     </div>
 {#    <div class="layui-form-mid layui-word-aux">辅助文字</div>#}
