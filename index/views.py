@@ -41,7 +41,7 @@ def deep(request, name):
             return response
     elif os.path.isdir(new_path):
         data = get_data(repo_path, name)
-        print(data)
+        # print(data)
         return render(request, 'index.html', {'data': data})
     else:
         return HttpResponse('查无此文件')

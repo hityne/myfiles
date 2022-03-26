@@ -29,9 +29,9 @@
       <thead>
         <tr>
           <th style="width: 50%;">文件名</th>
-          <th style="width: 20%;">修改时间</th>
+          <th class="layui-hide-sm layui-hide-xs layui-show-md-inline" style="width: 20%;">修改时间</th>
           <th style="width: 15%;">文件大小</th>
-            <th style="width: 15%;">操作</th>
+            <th class="" style="width: 15%;">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -46,17 +46,17 @@
       {% for each in  data.dirs %}
            <tr>
           <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill" style="font-size: 1.1em;"></i> {{ each.name }}</a></td>
-          <td>{{ each.time }}</td>
+          <td class="layui-hide-sm layui-hide-xs layui-show-md-inline">{{ each.time }}</td>
           <td>{{ each.size }}</td>
-           <td> - </td>
+           <td class="" > - </td>
         </tr>
       {% endfor %}
        {% for each in data.files %}
            <tr>
             <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-{{ each.icon }}" style="font-size: 1.1em;"></i>  {{ each.name }}</a></td>
-          <td>{{ each.time }}</td>
+          <td class="layui-hide-sm layui-hide-xs layui-show-md-inline">{{ each.time }}</td>
           <td>{{ each.size }}</td>
-           <td>
+           <td class="" >
                <a download href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-download-circle" style="font-size:20px;color: #1E9FFF; margin-right: 7px;" title="下载"></i></a>
                <a href="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="layui-icon layui-icon-delete" style="font-size:20px;color: #eb7350;margin-right: 7px;"></i></a>
                 {% if each.name|slice:'-3:' == 'mp4' %}<a href="/play/?file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-play" style="font-size:20px;color: #eb7350;"></i></a>{% endif %}
