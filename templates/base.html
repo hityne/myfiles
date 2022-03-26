@@ -11,7 +11,10 @@
 <div>
 
     <ul class="layui-nav" style="padding-left:0; padding-right:0; background-color: #00565B;">
-<div style="width: 70%; margin: 0 auto; display:flex; justify-content:space-between;">
+
+    <div class="layui-container" >
+		  	<div class="layui-row">
+		    	<div class="layui-col-lg12" style="display:flex; justify-content:space-between;">
 
 <div style=" ">
   <li class="layui-nav-item">
@@ -31,16 +34,17 @@
   </li>
     {% endif %}
 </div>
+                </div>
+            </div>
 
 </div>>
 </ul>
 
 </div>
 
-<div style="width: 70%; margin: 0 auto; margin-top: 20px;">
-         {% block content %}
-      {% endblock %}
-</div>
+{% block content %}
+{% endblock %}
+
 
 </body>
 </html>

@@ -14,7 +14,7 @@ def get_file_icon(file_name):
     elif file_type in ['pdf']:
         file_icon = 'file-earmark-pdf-fill'
     elif file_type in ['jpg', 'gif', 'png']:
-        file_icon = 'file-image'
+        file_icon = 'image'
     else:
         file_icon = 'file'
     return file_icon

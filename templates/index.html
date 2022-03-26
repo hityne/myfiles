@@ -2,7 +2,9 @@
 
 {% block content %}
 
-    <div>
+    <div class="layui-container" style="margin-top: 12px;">
+		  	<div class="layui-row">
+		    	<div class="layui-col-lg12">
         <span>当前位置：</span><span>
         <a href="/"><i class="layui-icon layui-icon-home" ></i></a></span>
     {% if data.path.0 != '' %}
@@ -11,6 +13,13 @@
         {% endfor %}
     {% endif %}
     </div>
+            </div>
+    </div>
+
+
+    <div class="layui-container">
+		  	<div class="layui-row">
+		    	<div class="layui-col-lg12">
     <table class="layui-table">
 {#      <colgroup>#}
 {#        <col width="150">#}
@@ -36,7 +45,7 @@
       {% endif %}
       {% for each in  data.dirs %}
            <tr>
-          <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill"></i> {{ each.name }}</a></td>
+          <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill" style="font-size: 1.1em;"></i> {{ each.name }}</a></td>
           <td>{{ each.time }}</td>
           <td>{{ each.size }}</td>
            <td> - </td>
@@ -44,7 +53,7 @@
       {% endfor %}
        {% for each in data.files %}
            <tr>
-            <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi {{ each.icon }}"></i>  {{ each.name }}</a></td>
+            <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-{{ each.icon }}" style="font-size: 1.1em;"></i>  {{ each.name }}</a></td>
           <td>{{ each.time }}</td>
           <td>{{ each.size }}</td>
            <td>
@@ -57,5 +66,8 @@
 
       </tbody>
     </table>
+                </div>
+            </div>
+    </div>
 
   {% endblock %}
