@@ -44,7 +44,7 @@
       {% endfor %}
        {% for each in data.files %}
            <tr>
-            <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-file"></i>  {{ each.name }}</a></td>
+            <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon {{ each.icon }}"></i>  {{ each.name }}</a></td>
           <td>{{ each.time }}</td>
           <td>{{ each.size }}</td>
            <td>
