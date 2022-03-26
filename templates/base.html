@@ -4,39 +4,36 @@
   <meta charset="utf-8">
   <title>文件管理器 Myfiles</title>
   <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/bootstrap-icons/bootstrap-icons.css">
 </head>
 <body>
 
 <div>
 
-    <ul class="layui-nav" style="padding-left:0;">
-<div style="width: 70%; margin: 0 auto;">
+    <ul class="layui-nav" style="padding-left:0; padding-right:0; background-color: #00565B;">
+<div style="width: 70%; margin: 0 auto; display:flex; justify-content:space-between;">
+
+<div style=" ">
   <li class="layui-nav-item">
     <a href="/" style="margin-left:0;padding-left:5px; font-size:x-large;color:white; font-family:'Microsoft YaHei UI'; font-weight: bold;"><i class="layui-icon layui-icon-component" style="font-size: 25px; color: #1E9FFF;"></i> Myfiles</a>
 {#      <span class="layui-badge">9</span>#}
   </li>
+</div>
+
+<div style=" ">
     {% if request.user.is_authenticated %}
     <li class="layui-nav-item">
-    <a href="/logout/">logout<span class="layui-badge-dot"></span></a>
+    <a href="/logout/">Logout<span class="layui-badge-dot" style="padding-top:2px;"></span></a>
   </li>
     {% else %}
-<li class="layui-nav-item">
-    <a href="/login/">login<span class="layui-badge-dot"></span></a>
+<li class="layui-nav-item" >
+    <a href="/login/">Login<span class="layui-badge-dot layui-bg-green" style="padding-top:2px;"></span></a>
   </li>
     {% endif %}
+</div>
 
-{#  <li class="layui-nav-item">#}
-{#    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>#}
-{#    <dl class="layui-nav-child">#}
-{#      <dd><a href="javascript:;">修改信息</a></dd>#}
-{#      <dd><a href="javascript:;">安全管理</a></dd>#}
-{#      <dd><a href="javascript:;">退了</a></dd>#}
-{#    </dl>#}
-{#  </li>#}
 </div>>
 </ul>
-
-
 
 </div>
 
@@ -44,5 +41,6 @@
          {% block content %}
       {% endblock %}
 </div>
+
 </body>
 </html>
