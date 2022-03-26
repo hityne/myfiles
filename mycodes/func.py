@@ -4,17 +4,19 @@ import time
 
 
 def get_file_icon(file_name):
-    file_type = file_name[file_name.rfind('.')+1:]
-    if file_type in ['mp4','avi','mov']:
-        file_icon = 'layui-icon-video'
+    file_type = file_name[file_name.rfind('.') + 1:]
+    if file_type in ['mp4', 'avi', 'mov']:
+        file_icon = 'film'
     elif file_type in ['mp3', 'wav']:
-        file_icon = 'layui-icon-headset'
-    elif file_type in ['xlsx', 'xls', 'doc', 'docx', 'ppt','pptx','pdf']:
-        file_icon = 'layui-icon-tabs'
+        file_icon = 'file-earmark-music'
+    elif file_type in ['xlsx', 'xls', 'doc', 'docx', 'ppt', 'pptx', 'pdf']:
+        file_icon = 'file-earmark-font'
+    elif file_type in ['pdf']:
+        file_icon = 'file-earmark-pdf-fill'
     elif file_type in ['jpg', 'gif', 'png']:
-        file_icon = 'layui-icon-picture-fine'
+        file_icon = 'file-image'
     else:
-        file_icon = 'layui-icon-file'
+        file_icon = 'file'
     return file_icon
 
 
@@ -33,9 +35,10 @@ def get_data(repo_path, file_path):
             elif os.path.isfile(mypath):
                 myname = each
                 mytime = time.strftime('%y-%m-%d %H:%M:%S', time.localtime(os.path.getmtime(mypath)))
-                mysize = str(round(os.path.getsize(mypath) / 1024)) + ' KB'
+                mysize = str(format(round(os.path.getsize(mypath) / 1024), ',')) + ' KB'
                 myicon = get_file_icon(each)
-                data['files'].append({'name': myname, 'time': mytime, 'size': mysize, 'path': file_path, 'icon': myicon})
+                data['files'].append(
+                    {'name': myname, 'time': mytime, 'size': mysize, 'path': file_path, 'icon': myicon})
 
     return data
 
@@ -55,5 +58,3 @@ def file_iterator(file_name, chunk_size=8192, offset=0, length=None):
             if remaining:
                 remaining -= len(data)
             yield data
-
-

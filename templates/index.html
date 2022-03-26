@@ -28,7 +28,7 @@
       <tbody>
       {% if request.path != '/' %}
        <tr>
-          <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }}{% endfor %}{% else %}/{% endif %}"><i class="layui-icon layui-icon-prev" ></i> .. </a></td>
+          <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }}{% endfor %}{% else %}/{% endif %}" style="font-size: small"><i class="layui-icon layui-icon-prev" style="font-size: small" ></i> .. </a></td>
           <td></td>
           <td></td>
            <td></td>
@@ -36,7 +36,7 @@
       {% endif %}
       {% for each in  data.dirs %}
            <tr>
-          <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-release"></i> {{ each.name }}</a></td>
+          <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill"></i> {{ each.name }}</a></td>
           <td>{{ each.time }}</td>
           <td>{{ each.size }}</td>
            <td> - </td>
@@ -44,7 +44,7 @@
       {% endfor %}
        {% for each in data.files %}
            <tr>
-            <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon {{ each.icon }}"></i>  {{ each.name }}</a></td>
+            <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi {{ each.icon }}"></i>  {{ each.name }}</a></td>
           <td>{{ each.time }}</td>
           <td>{{ each.size }}</td>
            <td>
