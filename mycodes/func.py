@@ -35,7 +35,14 @@ def get_data(repo_path, file_path):
             elif os.path.isfile(mypath):
                 myname = each
                 mytime = time.strftime('%y-%m-%d %H:%M:%S', time.localtime(os.path.getmtime(mypath)))
-                mysize = str(format(round(os.path.getsize(mypath) / 1024), ',')) + ' KB'
+                a = os.path.getsize(mypath)
+                if a//1024 < 1024:
+                    mysize = str(delete_extra_zero(round(a / 1024, 0)))+' K'
+                elif 1024 <= a//1024 < 1024 * 1024:
+                    mysize = str(delete_extra_zero(round(a / 1024 / 1024, 1)))+' M'
+                else:
+                    mysize = str(delete_extra_zero(round(a / 1024 / 1024 / 1024, 1)))+' G'
+                # mysize = str(format(round(os.path.getsize(mypath) / 1024), ',')) + ' KB'
                 myicon = get_file_icon(each)
                 data['files'].append(
                     {'name': myname, 'time': mytime, 'size': mysize, 'path': file_path, 'icon': myicon})
@@ -58,3 +65,10 @@ def file_iterator(file_name, chunk_size=8192, offset=0, length=None):
             if remaining:
                 remaining -= len(data)
             yield data
+
+
+def delete_extra_zero(n):
+    """删除小数点后多余的0"""
+    n = '{:g}'.format(n)
+    n = float(n) if '.' in n else int(n)  # 含小数点转float否则int
+    return n
