@@ -55,7 +55,7 @@
            <td class="" >
                <a class="layui-hide-xs" download href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-download-circle" style="font-size:20px;color: #1E9FFF; margin-right: 8px;" title="下载"></i></a>
                <a class="layui-hide-xs" onclick="ifDelete(this)" url="del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="layui-icon layui-icon-delete" style="font-size:20px;color: #eb7350;margin-right: 8px;"></i></a>
-                {% if each.name|slice:'-3:' == 'mp4' %}<a href="/play/?file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-play" style="font-size:20px;color: #eb7350;"></i></a>{% endif %}
+                {% if each.name|slice:'-3:' == 'mp4' or each.name|slice:'-3:' == 'mkv' %}<a href="/play/?file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-play" style="font-size:20px;color: #eb7350;"></i></a>{% endif %}
            </td>
         </tr>
       {% endfor %}
