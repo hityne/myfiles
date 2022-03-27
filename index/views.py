@@ -27,18 +27,19 @@ def deep(request, name):
     repo_path = './myrepo'
     new_path = os.path.join(repo_path, name)
     if os.path.isfile(new_path):
-        if new_path.endswith('.jpg'):
-            return render(request, 'img.html', {'data': {'name': name}})
-        # 读取文件
-        else:
-            file = open(new_path, 'rb')
-            response = FileResponse(file)
-
-            # 使用urlquote对文件名称进行编码
-            name = name[name.rfind('/') + 1:]
-            response['Content-Disposition'] = 'attachment;filename="%s"' % urlquote(name)
-
-            return response
+        # if new_path.endswith('.jpg'):
+        #     return render(request, 'img.html', {'data': {'name': name}})
+        # # 读取文件
+        # else:
+        #     file = open(new_path, 'rb')
+        #     response = FileResponse(file)
+        #
+        #     # 使用urlquote对文件名称进行编码
+        #     name = name[name.rfind('/') + 1:]
+        #     response['Content-Disposition'] = 'attachment;filename="%s"' % urlquote(name)
+        #
+        #     return response
+        return HttpResponse('')
     elif os.path.isdir(new_path):
         data = get_data(repo_path, name)
         # print(data)
