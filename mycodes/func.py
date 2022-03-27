@@ -23,7 +23,7 @@ def get_file_icon(file_name):
 def get_nav_path(file_path):
     file_path_list = file_path.split('/')
     file_path_url = []
-    print(file_path_list)
+    # print(file_path_list)
     for n, each in enumerate(file_path_list):
         file_path_url.append('/' + '/'.join(file_path_list[:n + 1]))
     result = list(zip(file_path_list, file_path_url))
