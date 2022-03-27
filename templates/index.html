@@ -9,7 +9,7 @@
         <a href="/"><i class="layui-icon layui-icon-home" ></i></a></span>
     {% if data.path.0 != '' %}
         {% for each in data.path %}
-            <span>/ {{ each }}</span>
+            <span>/ <a href="{{ each.1 }}">{{ each.0 }}</a></span>
         {% endfor %}
     {% endif %}
     </div>

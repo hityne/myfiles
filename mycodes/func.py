@@ -20,9 +20,18 @@ def get_file_icon(file_name):
     return file_icon
 
 
+def get_nav_path(file_path):
+    file_path_list = file_path.split('/')
+    file_path_url = []
+    print(file_path_list)
+    for n, each in enumerate(file_path_list):
+        file_path_url.append('/' + '/'.join(file_path_list[:n + 1]))
+    result = list(zip(file_path_list, file_path_url))
+    return result
+
 def get_data(repo_path, file_path):
     path = os.path.join(repo_path, file_path)
-    data = {'dirs': [], 'files': [], 'path': file_path.split('/')}
+    data = {'dirs': [], 'files': [], 'path': get_nav_path(file_path)}
     for each in os.listdir(path):
         if each.startswith('.') is False and each.startswith('~') is False:
             mypath = os.path.join(path, each)
