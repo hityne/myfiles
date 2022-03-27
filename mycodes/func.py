@@ -16,7 +16,7 @@ def get_file_icon(file_name):
     elif file_type in ['jpg', 'gif', 'png']:
         file_icon = 'image'
     else:
-        file_icon = 'file'
+        file_icon = 'file-earmark'
     return file_icon
 
 
