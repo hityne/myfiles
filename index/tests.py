@@ -26,3 +26,6 @@ def get_data():
 
 def get_file_type(file_name):
     return file_name[file_name.rfind('.') + 1:]
+
+
+

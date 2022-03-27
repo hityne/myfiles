@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import shutil
 
 
 def get_file_icon(file_name):
@@ -52,7 +53,6 @@ def get_data(repo_path, file_path):
 
 # 视频播放
 
-
 def file_iterator(file_name, chunk_size=8192, offset=0, length=None):
     with open(file_name, "rb") as f:
         f.seek(offset, os.SEEK_SET)
@@ -72,3 +72,8 @@ def delete_extra_zero(n):
     n = '{:g}'.format(n)
     n = float(n) if '.' in n else int(n)  # 含小数点转float否则int
     return n
+
+
+def get_disk_usage():
+    total, used, free = shutil.disk_usage("/")
+    return {'total': total//(2**30), 'used': used//(2**30), 'free': free//(2**30)}
