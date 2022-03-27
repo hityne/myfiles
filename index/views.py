@@ -94,7 +94,8 @@ def delete(request):
     if os.path.exists(new_path):
         print(new_path)
         os.remove(new_path)
-        return HttpResponseRedirect('/' + a)
+        # return HttpResponseRedirect('/' + a)
+        return HttpResponse("文件删除成功！")
     else:
         return HttpResponse("没有此文件！")
 

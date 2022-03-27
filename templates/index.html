@@ -17,7 +17,7 @@
     </div>
 
 
-    <div class="layui-container">
+    <div class="layui-container" style="margin-bottom: 15px;">
 		  	<div class="layui-row">
 		    	<div class="layui-col-lg12">
     <table class="layui-table">
@@ -29,7 +29,7 @@
       <thead>
         <tr>
           <th style="width: 50%;">文件名</th>
-          <th class="layui-hide-sm layui-hide-xs layui-show-md-inline" style="width: 20%;">修改时间</th>
+          <th class="" style="width: 20%;">修改时间</th>
           <th style="width: 15%;">文件大小</th>
             <th class="" style="width: 15%;">操作</th>
         </tr>
@@ -38,7 +38,7 @@
       {% if request.path != '/' %}
        <tr>
           <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }}{% endfor %}{% else %}/{% endif %}" style="font-size: small"><i class="layui-icon layui-icon-prev" style="font-size: small" ></i> .. </a></td>
-          <td></td>
+          <td class="" ></td>
           <td></td>
            <td></td>
         </tr>
@@ -46,7 +46,7 @@
       {% for each in  data.dirs %}
            <tr>
           <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill" style="font-size: 1.1em;"></i> {{ each.name }}</a></td>
-          <td class="layui-hide-sm layui-hide-xs layui-show-md-inline">{{ each.time }}</td>
+          <td class="">{{ each.time }}</td>
           <td>{{ each.size }}</td>
            <td class="" > - </td>
         </tr>
@@ -54,11 +54,11 @@
        {% for each in data.files %}
            <tr>
             <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-{{ each.icon }}" style="font-size: 1.1em;"></i>  {{ each.name }}</a></td>
-          <td class="layui-hide-sm layui-hide-xs layui-show-md-inline">{{ each.time }}</td>
+          <td class="layui-hide-sm layui-hide-xs layui-show-md-block">{{ each.time }}</td>
           <td>{{ each.size }}</td>
            <td class="" >
                <a download href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-download-circle" style="font-size:20px;color: #1E9FFF; margin-right: 7px;" title="下载"></i></a>
-               <a href="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="layui-icon layui-icon-delete" style="font-size:20px;color: #eb7350;margin-right: 7px;"></i></a>
+               <a onclick="ifDelete(this)" url="del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="layui-icon layui-icon-delete" style="font-size:20px;color: #eb7350;margin-right: 7px;"></i></a>
                 {% if each.name|slice:'-3:' == 'mp4' %}<a href="/play/?file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-play" style="font-size:20px;color: #eb7350;"></i></a>{% endif %}
            </td>
         </tr>
@@ -71,3 +71,41 @@
     </div>
 
   {% endblock %}
+
+
+{% block script %}
+
+<script src="/static/layui/layui.js"></script>
+<script>
+//询问框
+function ifDelete(a){
+    let that = a
+    let url = that.attributes['url'].value
+{#console.log(url);#}
+layer.confirm('确认删除', {
+  btn: ['是的','取消'] //按钮
+}, function(){
+    layer.close()
+    var httpRequest = new XMLHttpRequest();//第一步：建立所需的对象
+        httpRequest.open('GET', url);//第二步：打开连接  将请求参数写在url中  ps:"./Ptest.php?name=test&nameone=testone"
+        httpRequest.send();//第三步：发送请求  将请求参数写在URL中
+        /**
+         * 获取数据后的处理程序
+         */
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                var json = httpRequest.responseText;//获取到json字符串，还需解析
+                console.log("删除成功！")
+                console.log(json);
+                location.reload();
+            }
+        };
+
+}, function(){
+layer.close();
+console.log("取消删除！")
+});
+}
+</script>
+
+{% endblock %}
