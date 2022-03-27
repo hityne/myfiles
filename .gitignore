@@ -6,3 +6,5 @@ static
  
 # Backup files #
 *.bak
+*.pid
+*.log
