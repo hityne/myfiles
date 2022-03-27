@@ -26,7 +26,12 @@ import mimetypes
 def deep(request, name):
     repo_path = './myrepo'
     new_path = os.path.join(repo_path, name)
-    if os.path.isfile(new_path):
+
+    if os.path.isdir(new_path):
+        data = get_data(repo_path, name)
+        # print(data)
+        return render(request, 'index.html', {'data': data})
+    elif os.path.isfile(new_path):
         # if new_path.endswith('.jpg'):
         #     return render(request, 'img.html', {'data': {'name': name}})
         # # 读取文件
@@ -40,12 +45,8 @@ def deep(request, name):
         #
         #     return response
         return HttpResponse('')
-    elif os.path.isdir(new_path):
-        data = get_data(repo_path, name)
-        # print(data)
-        return render(request, 'index.html', {'data': data})
     else:
-        return HttpResponse('查无此文件')
+        return HttpResponse('访问出错！')
 
 
 def user_login(request):
