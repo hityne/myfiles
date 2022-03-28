@@ -44,3 +44,11 @@
             </div>
         </div>
 {% endblock %}
+
+
+{% block script %}
+
+<script src="/static/layui/layui.js"></script>
+{% if message %}<script>layer.msg("{{ message }}", {icon: 8,time:1500});</script>{% endif %}
+
+{% endblock %}
