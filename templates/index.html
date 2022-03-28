@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div class="layui-container" style="margin-top: 12px;">
+    <div class="layui-container" style="margin-top: 18px;">
 		  	<div class="layui-row">
 		    	<div class="layui-col-lg12">
         <span>当前位置：</span><span>
@@ -79,7 +79,7 @@ function ifDelete(a){
     let that = a
     let url = that.attributes['url'].value
 {#console.log(url);#}
-layer.confirm('确认删除', {
+layer.confirm('确认删除？', {
   btn: ['是的','取消'] //按钮
 }, function(){
     layer.close()
