@@ -2,7 +2,6 @@
 __pycache__
 db.sqlite3
 myrepo
-static
  
 # Backup files #
 *.bak
