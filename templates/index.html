@@ -2,60 +2,125 @@
 
 {% block content %}
 
-    <div>
+    <div class="layui-container" style="margin-top: 12px;">
+		  	<div class="layui-row">
+		    	<div class="layui-col-lg12">
         <span>当前位置：</span><span>
         <a href="/"><i class="layui-icon layui-icon-home" ></i></a></span>
     {% if data.path.0 != '' %}
         {% for each in data.path %}
-            <span>/ {{ each }}</span>
+            <span>/ <a href="{{ each.1 }}">{{ each.0 }}</a></span>
         {% endfor %}
     {% endif %}
     </div>
-    <table class="layui-table">
-{#      <colgroup>#}
-{#        <col width="150">#}
-{#        <col width="200">#}
-{#        <col>#}
-{#      </colgroup>#}
+            </div>
+    </div>
+
+
+    <div class="layui-container" style="padding-bottom: 65px;">
+		  	<div class="layui-row">
+		    	<div class="layui-col-lg12">
+    <table class="layui-table" lay-skin="line">
+
       <thead>
         <tr>
-          <th style="width: 50%;">文件名</th>
-          <th style="width: 20%;">修改时间</th>
-          <th style="width: 15%;">文件大小</th>
-            <th style="width: 15%;">操作</th>
+          <th style="width: 55%;" >文件名</th>
+          <th class="layui-hide-xs" >修改时间</th>
+          <th style="">文件大小</th>
+            <th class="" style="width: 20%;">操作</th>
         </tr>
       </thead>
       <tbody>
       {% if request.path != '/' %}
        <tr>
-          <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each }}{% endfor %}{% else %}/{% endif %}" style="font-size: small"><i class="layui-icon layui-icon-prev" style="font-size: small" ></i> .. </a></td>
-          <td></td>
+          <td><a href="{% if data.path|length > 1 %}{% for each in data.path|slice:"0:-1" %}/{{ each.0 }}{% endfor %}{% else %}/{% endif %}" style="font-size: small"><i class="layui-icon layui-icon-prev" style="font-size: small" ></i> .. </a></td>
+          <td class="layui-hide-xs"></td>
           <td></td>
            <td></td>
         </tr>
       {% endif %}
       {% for each in  data.dirs %}
            <tr>
-          <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill"></i> {{ each.name }}</a></td>
-          <td>{{ each.time }}</td>
+          <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill" style="font-size: 1.1em;"></i> {{ each.name }}</a></td>
+          <td class="layui-hide-xs" >{{ each.time }}</td>
           <td>{{ each.size }}</td>
-           <td> - </td>
+           <td class="" > - </td>
         </tr>
       {% endfor %}
        {% for each in data.files %}
            <tr>
-            <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi {{ each.icon }}"></i>  {{ each.name }}</a></td>
-          <td>{{ each.time }}</td>
+            <td style="display:flex; justify-content:space-between;"><span><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-{{ each.icon }}" style="font-size: 1.1em;"></i>  {{ each.name }}</a> </span> <span> <a class="layui-hide-xs" download href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-download" style="font-size:18px;color: #1E9FFF; margin-right: 8px;" title="下载"></i></a></span> </td>
+          <td class="layui-hide-xs">{{ each.time }}</td>
           <td>{{ each.size }}</td>
-           <td>
-               <a download href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-download-circle" style="font-size:20px;color: #1E9FFF; margin-right: 7px;" title="下载"></i></a>
-               <a href="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="layui-icon layui-icon-delete" style="font-size:20px;color: #eb7350;margin-right: 7px;"></i></a>
-                {% if each.name|slice:'-3:' == 'mp4' %}<a href="/play/?file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="layui-icon layui-icon-play" style="font-size:20px;color: #eb7350;"></i></a>{% endif %}
+           <td class="" >
+               <a class="layui-hide-xs btn" data-clipboard-text="http://{{ request.get_host }}{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}" ><i class="bi bi-clipboard2" style="font-size:18px;color: #1E9FFF; margin-right: 8px;" title="复制下载地址"></i></a>
+               <a class="layui-hide-xs" onclick="ifDelete(this)" url="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="bi bi-trash3" style="font-size:18px;color: #eb7350;margin-right: 8px;"></i></a>
+                {% if each.name|slice:'-3:' == 'mp4' or each.name|slice:'-3:' == 'mkv' %}<a href="/play/?file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}" title="播放"><i class="layui-icon layui-icon-play" style="font-size:18px;color: #eb7350;"></i></a>{% endif %}
            </td>
         </tr>
       {% endfor %}
 
       </tbody>
     </table>
+                </div>
+            </div>
+    </div>
 
   {% endblock %}
+
+
+{% block script %}
+
+<script src="/static/layui/layui.js"></script>
+
+<script>
+//询问框
+function ifDelete(a){
+    let that = a
+    let url = that.attributes['url'].value
+{#console.log(url);#}
+layer.confirm('确认删除', {
+  btn: ['是的','取消'] //按钮
+}, function(){
+    layer.close()
+    var httpRequest = new XMLHttpRequest();//第一步：建立所需的对象
+        httpRequest.open('GET', url);//第二步：打开连接  将请求参数写在url中  ps:"./Ptest.php?name=test&nameone=testone"
+        httpRequest.send();//第三步：发送请求  将请求参数写在URL中
+        /**
+         * 获取数据后的处理程序
+         */
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                var json = httpRequest.responseText;//获取到json字符串，还需解析
+                console.log("删除成功！")
+                console.log(json);
+                location.reload();
+            }
+        };
+
+}, function(){
+layer.close();
+console.log("取消删除！")
+});
+}
+</script>
+
+<script src="/static/clipboard/clipboard.min.js"></script>
+    <script>
+    var clipboard = new ClipboardJS('.btn');
+
+clipboard.on('success', function(e) {
+    console.info('Action:', e.action);
+    console.info('Text:', e.text);
+    console.info('Trigger:', e.trigger);
+    e.clearSelection();
+    layer.msg('已复制下载地址', {icon: 6,time:1000});
+});
+
+clipboard.on('error', function(e) {
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
+});
+    </script>
+
+{% endblock %}

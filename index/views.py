@@ -26,24 +26,27 @@ import mimetypes
 def deep(request, name):
     repo_path = './myrepo'
     new_path = os.path.join(repo_path, name)
-    if os.path.isfile(new_path):
-        if new_path.endswith('.jpg'):
-            return render(request, 'img.html', {'data': {'name': name}})
-        # 读取文件
-        else:
-            file = open(new_path, 'rb')
-            response = FileResponse(file)
 
-            # 使用urlquote对文件名称进行编码
-            name = name[name.rfind('/') + 1:]
-            response['Content-Disposition'] = 'attachment;filename="%s"' % urlquote(name)
-
-            return response
-    elif os.path.isdir(new_path):
+    if os.path.isdir(new_path):
         data = get_data(repo_path, name)
+        # print(data)
         return render(request, 'index.html', {'data': data})
+    elif os.path.isfile(new_path):
+        # if new_path.endswith('.jpg'):
+        #     return render(request, 'img.html', {'data': {'name': name}})
+        # # 读取文件
+        # else:
+        #     file = open(new_path, 'rb')
+        #     response = FileResponse(file)
+        #
+        #     # 使用urlquote对文件名称进行编码
+        #     name = name[name.rfind('/') + 1:]
+        #     response['Content-Disposition'] = 'attachment;filename="%s"' % urlquote(name)
+        #
+        #     return response
+        return HttpResponse('')
     else:
-        return HttpResponse('查无此文件')
+        return HttpResponse('访问出错！')
 
 
 def user_login(request):
@@ -60,7 +63,7 @@ def user_login(request):
 
             login(request, user)
             # 这一步就是登陆，login会与数据库交互，会创建session使下次登陆不需验证
-            print(user.is_authenticated)
+            # print(user.is_authenticated)
             # return HttpResponse("Hello, {}".format(user.username))
 
             ########
@@ -93,7 +96,8 @@ def delete(request):
     if os.path.exists(new_path):
         print(new_path)
         os.remove(new_path)
-        return HttpResponseRedirect('/' + a)
+        # return HttpResponseRedirect('/' + a)
+        return HttpResponse("文件删除成功！")
     else:
         return HttpResponse("没有此文件！")
 

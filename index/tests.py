@@ -26,3 +26,14 @@ def get_data():
 
 def get_file_type(file_name):
     return file_name[file_name.rfind('.') + 1:]
+
+
+def get_nav_path(file_path):
+    file_path = 'test1/test2/test3'
+    file_path_list = file_path.split('/')
+    file_path_url = []
+    print(file_path_list)
+    for n, each in enumerate(file_path_list):
+        file_path_url.append('/' + '/'.join(file_path_list[:n + 1]))
+    result = list(zip(file_path_list, file_path_url))
+    return result
