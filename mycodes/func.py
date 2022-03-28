@@ -22,7 +22,7 @@ def get_file_icon(file_name):
         file_icon = 'file-earmark-code'
     elif file_type in ['exe']:
         file_icon = 'windows'
-    elif file_type in ['zip', 'rar']:
+    elif file_type in ['zip', 'rar', 'gz']:
         file_icon = 'file-earmark-zip-fill'
     else:
         file_icon = 'file-earmark'
