@@ -3,18 +3,27 @@ import re
 import time
 import shutil
 
+
 def get_file_icon(file_name):
     file_type = file_name[file_name.rfind('.') + 1:]
     if file_type in ['mp4', 'avi', 'mov', 'mkv']:
         file_icon = 'film'
     elif file_type in ['mp3', 'wav']:
         file_icon = 'file-earmark-music'
-    elif file_type in ['xlsx', 'xls', 'doc', 'docx', 'ppt', 'pptx', 'pdf']:
+    elif file_type in ['xlsx', 'xls', 'doc', 'docx', 'ppt', 'pptx', 'pdf', 'csv']:
         file_icon = 'file-earmark-font'
     elif file_type in ['pdf']:
         file_icon = 'file-earmark-pdf-fill'
+    elif file_type in ['txt', 'md']:
+        file_icon = 'file-text'
     elif file_type in ['jpg', 'gif', 'png']:
         file_icon = 'image'
+    elif file_type in ['py', 'sh', 'js', 'ipynb', 'asp', 'php', 'net', 'jsp', 'jar', 'css', 'html', 'htm', 'c', 'C']:
+        file_icon = 'file-earmark-code'
+    elif file_type in ['exe']:
+        file_icon = 'windows'
+    elif file_type in ['zip', 'rar']:
+        file_icon = 'file-earmark-zip-fill'
     else:
         file_icon = 'file-earmark'
     return file_icon
@@ -28,6 +37,7 @@ def get_nav_path(file_path):
         file_path_url.append('/' + '/'.join(file_path_list[:n + 1]))
     result = list(zip(file_path_list, file_path_url))
     return result
+
 
 def get_data(repo_path, file_path):
     path = os.path.join(repo_path, file_path)
@@ -45,12 +55,12 @@ def get_data(repo_path, file_path):
                 myname = each
                 mytime = time.strftime('%y-%m-%d %H:%M:%S', time.localtime(os.path.getmtime(mypath)))
                 a = os.path.getsize(mypath)
-                if a//1024 < 1024:
-                    mysize = str(delete_extra_zero(round(a / 1024, 0)))+' K'
-                elif 1024 <= a//1024 < 1024 * 1024:
-                    mysize = str(delete_extra_zero(round(a / 1024 / 1024, 1)))+' M'
+                if a // 1024 < 1024:
+                    mysize = str(delete_extra_zero(round(a / 1024, 0))) + ' K'
+                elif 1024 <= a // 1024 < 1024 * 1024:
+                    mysize = str(delete_extra_zero(round(a / 1024 / 1024, 1))) + ' M'
                 else:
-                    mysize = str(delete_extra_zero(round(a / 1024 / 1024 / 1024, 1)))+' G'
+                    mysize = str(delete_extra_zero(round(a / 1024 / 1024 / 1024, 1))) + ' G'
                 # mysize = str(format(round(os.path.getsize(mypath) / 1024), ',')) + ' KB'
                 myicon = get_file_icon(each)
                 data['files'].append(
@@ -84,4 +94,4 @@ def delete_extra_zero(n):
 
 def get_disk_usage():
     total, used, free = shutil.disk_usage("/")
-    return {'total': total//(2**30), 'used': used//(2**30), 'free': free//(2**30)}
+    return {'total': total // (2 ** 30), 'used': used // (2 ** 30), 'free': free // (2 ** 30)}
