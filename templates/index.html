@@ -24,10 +24,10 @@
 
       <thead>
         <tr>
-          <th style="width: 65vm" >文件名</th>
+          <th style="width: 65%" >文件名</th>
           <th class="layui-hide-xs">修改时间</th>
           <th >大小</th>
-            <th class="" style="width: 15vm;">操作</th>
+            <th class="" style="width: 15%;">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -49,7 +49,7 @@
       {% endfor %}
        {% for each in data.files %}
            <tr>
-            <td style="display:flex; justify-content:space-between;"><span><a style="" href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-{{ each.icon }}" style="font-size: 1.1em;"></i>  {{ each.name }}</a> </span> <span> <a class="layui-hide-xs" download href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-download" style="font-size:18px;color: #1E9FFF; margin-right: 8px;" title="下载"></i></a></span> </td>
+            <td style="display:flex; justify-content:space-between;"><span style="height: auto ;white-space: normal;word-wrap:break-word;"><a style="" href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-{{ each.icon }}" style="font-size: 1.1em;"></i>  {{ each.name }}</a> </span> <span> <a class="layui-hide-xs" download href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-download" style="font-size:18px;color: #1E9FFF; margin-right: 8px;" title="下载"></i></a></span> </td>
           <td class="layui-hide-xs" style="white-space: nowrap;">{{ each.time }}</td>
           <td style="white-space: nowrap;">{{ each.size }}</td>
            <td class="" >
