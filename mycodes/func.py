@@ -10,6 +10,8 @@ def get_file_icon(file_name):
         file_icon = 'film'
     elif file_type in ['mp3', 'wav']:
         file_icon = 'file-earmark-music'
+    elif file_type in ['iso', 'ISO']:
+        file_icon = 'server'
     elif file_type in ['xlsx', 'xls', 'doc', 'docx', 'ppt', 'pptx', 'pdf', 'csv']:
         file_icon = 'file-earmark-font'
     elif file_type in ['pdf']:
