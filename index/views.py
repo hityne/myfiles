@@ -51,8 +51,11 @@ def deep(request, name):
 
 def user_login(request):
     if request.method != 'POST':
-        next = request.GET.get('next', '')
-        return render(request, 'login2.html', {'next': next})
+        if request.user.is_authenticated:
+            return redirect('/')
+        else:
+            next = request.GET.get('next', '')
+            return render(request, 'login2.html', {'next': next})
     else:
         _username = request.POST.get('username')
         _password = request.POST.get('password')
