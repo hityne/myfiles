@@ -90,32 +90,43 @@ def user_login(request):
 @login_required
 def delete(request):
     a = request.GET.get('a')
-    print(a)
     b = request.GET.get('b')
-
-    print(b)
     repo_path = './myrepo'
     new_path = os.path.join(repo_path, a, b)
     if os.path.exists(new_path):
         print(new_path)
-        os.remove(new_path)
-        # return HttpResponseRedirect('/' + a)
-        return HttpResponse("文件删除成功！")
+        if os.path.isfile(new_path):
+            os.remove(new_path)
+            # return HttpResponseRedirect('/' + a)
+            msg = {'a': 1, 'b': "文件删除成功！"}
+            return HttpResponse(json.dumps(msg))
+        else:
+            try:
+                os.removedirs(new_path)
+                msg = {'a': 1, 'b': "文件夹删除成功！"}
+                return HttpResponse(json.dumps(msg))
+            except OSError:
+                msg = {'a': 0, 'b': "无法删除！文件夹不为空。"}
+                return HttpResponse(json.dumps(msg))
     else:
-        return HttpResponse("没有此文件！")
+        msg = {'a': 0, 'b': "没有此文件或文件夹！"}
+        return HttpResponse(json.dumps(msg))
+
 
 def user_logout(request):
     logout(request)
     return redirect('/login/')
 
+
 def player(request):
     file_path = request.GET.get('file_path')
     return render(request, 'player.html', locals())
 
+
 def stream_video(request, path):
     """ responds to the video file as """
     # path = 'static/media/show.mp4'  # 此为我的视频路径
-    path=os.path.join('./myrepo/',path)
+    path = os.path.join('./myrepo/', path)
     print(path)
     range_header = request.META.get('HTTP_RANGE', '').strip()
     range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)

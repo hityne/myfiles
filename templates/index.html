@@ -44,7 +44,7 @@
                <td style="display:flex; justify-content:space-between;"><span><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill" style="font-size: 1.1em;"></i> {{ each.name }}</a></span><span style="margin-right:0.2em;"><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}" style="color: #58A6FF;">[{{ each.mycount }}]</a></span></td>
           <td class="layui-hide-xs" >{{ each.time }}</td>
           <td>{{ each.size }}</td>
-           <td class="" > - </td>
+           <td class="" > <a class="layui-hide-xs" onclick="ifDelete(this)" url="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="bi bi-trash3" style="font-size:18px;color: #eb7350;margin-right: 8px;"></i></a></td>
         </tr>
       {% endfor %}
        {% for each in data.files %}
@@ -82,7 +82,7 @@ function ifDelete(a){
 layer.confirm('确认删除？', {
   btn: ['是的','取消'] //按钮
 }, function(){
-    layer.close()
+    layer.closeAll()
     var httpRequest = new XMLHttpRequest();//第一步：建立所需的对象
         httpRequest.open('GET', url);//第二步：打开连接  将请求参数写在url中  ps:"./Ptest.php?name=test&nameone=testone"
         httpRequest.send();//第三步：发送请求  将请求参数写在URL中
@@ -91,10 +91,19 @@ layer.confirm('确认删除？', {
          */
         httpRequest.onreadystatechange = function () {
             if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-                var json = httpRequest.responseText;//获取到json字符串，还需解析
-                console.log("删除成功！")
+                var json = JSON.parse(httpRequest.responseText);//获取到json字符串，还需解析
                 console.log(json);
-                location.reload();
+                if (json.a === 1){
+                    console.log('hahahahahaha')
+                    console.log(json.b)
+                    layer.msg(json.b, {icon: 1, time: 1000}, function(){
+                        location.reload();
+                                                           });
+
+                }else{
+                    layer.msg(json.b, {icon: 2});
+                }
+
             }
         };
 
