@@ -10,7 +10,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.utils.http import urlquote
 
-from mycodes.func import get_data, file_iterator
+from mycodes.func import get_data, file_iterator, get_disk_usage
 
 from django.contrib.auth.decorators import login_required
 from wsgiref.util import FileWrapper
@@ -29,8 +29,9 @@ def deep(request, name):
 
     if os.path.isdir(new_path):
         data = get_data(repo_path, name)
+        space = get_disk_usage
         # print(data)
-        return render(request, 'index.html', {'data': data})
+        return render(request, 'index.html', {'data': data, 'space': space})
     elif os.path.isfile(new_path):
         # if new_path.endswith('.jpg'):
         #     return render(request, 'img.html', {'data': {'name': name}})
