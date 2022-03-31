@@ -6,7 +6,7 @@ import shutil
 
 def get_file_icon(file_name):
     file_type = file_name[file_name.rfind('.') + 1:]
-    if file_type in ['mp4', 'avi', 'mov', 'mkv']:
+    if file_type in ['mp4', 'avi', 'flv', 'mkv', 'm3u8']:
         file_icon = 'film'
     elif file_type in ['mp3', 'wav']:
         file_icon = 'file-earmark-music'

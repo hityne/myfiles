@@ -120,6 +120,7 @@ def user_logout(request):
 
 
 def player(request):
+    file_type = request.GET.get('file_type')
     file_path = request.GET.get('file_path')
     return render(request, 'player.html', locals())
 

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load get_extention %}
 
 {% block content %}
 
@@ -61,7 +62,7 @@
            <td class="" >
                <a class="layui-hide-xs btn" data-clipboard-text="http://{{ request.get_host }}{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}" ><i class="bi bi-clipboard2" style="font-size:18px;color: #1E9FFF; margin-right: 8px;" title="复制下载地址"></i></a>
                <a class="layui-hide-xs" onclick="ifDelete(this)" url="/del?a={{ each.path }}&b={{ each.name }}" rel="external nofollow" title="删除"><i class="bi bi-trash3" style="font-size:18px;color: #eb7350;margin-right: 8px;"></i></a>
-                {% if each.name|slice:'-3:' == 'mp4' or each.name|slice:'-3:' == 'mkv' %}<a href="/play/?file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}" title="播放"><i class="layui-icon layui-icon-play" style="font-size:18px;color: #eb7350;"></i></a>{% endif %}
+                {% if each.name|ext == 'mp4' or each.name|ext == 'mkv' or each.name|ext == 'flv' or each.name|ext == 'm3u8' %}<a href="/play/?file_type={{ each.name|ext }}&file_path={% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}" title="播放"><i class="layui-icon layui-icon-play" style="font-size:18px;color: #eb7350;"></i></a>{% endif %}
            </td>
         </tr>
       {% endfor %}

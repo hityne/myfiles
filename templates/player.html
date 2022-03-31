@@ -8,6 +8,8 @@
 			如果需要使用其它语言，请在此处引入相应的js,比如:<script type="text/javascript" src="ckplayer/language/en.js" charset="UTF-8"></script>
 		-->
 		<script type="text/javascript" src="/static/ckplayer/js/ckplayer.min.js" charset="UTF-8"></script>
+        {% if file_type == 'flv' %}<script type="text/javascript" src="/static/ckplayer/flv.js/flv.min.js"></script>{% endif %}
+    {% if  file_type == 'm3u8' %}<script type="text/javascript" src="/static/ckplayer/hls.js/hlsmin.js"></script>{% endif %}
 	</head>
 	<body style="background-color: #0C0C0C;">
 		
@@ -16,6 +18,8 @@
 			//调用开始
 			var videoObject = {
 				container: '.video', //视频容器
+            {% if file_type == 'flv' %} plug:'flv.js', {% endif %}
+            {% if file_type == 'm3u8' %} plug:'hls.js', {% endif %}
 				//poster:'/video/poster.png',//封面图片
 				video:'{{file_path}}'//视频地址
 			};
