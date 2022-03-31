@@ -41,7 +41,7 @@
       {% endif %}
       {% for each in  data.dirs %}
            <tr>
-          <td><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill" style="font-size: 1.1em;"></i> {{ each.name }}</a></td>
+               <td style="display:flex; justify-content:space-between;"><span><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}"><i class="bi bi-folder-fill" style="font-size: 1.1em;"></i> {{ each.name }}</a></span><span style="margin-right:0.2em;"><a href="{% if each.path != '' %}/{% endif %}{{ each.path }}/{{ each.name }}" style="color: #58A6FF;">[{{ each.mycount }}]</a></span></td>
           <td class="layui-hide-xs" >{{ each.time }}</td>
           <td>{{ each.size }}</td>
            <td class="" > - </td>

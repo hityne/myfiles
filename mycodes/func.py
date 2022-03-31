@@ -48,10 +48,14 @@ def get_data(repo_path, file_path):
         if each.startswith('.') is False and each.startswith('~') is False:
             mypath = os.path.join(path, each)
             if os.path.isdir(mypath):
+                mycount = 0
+                for one in os.listdir(mypath):
+                    if one.startswith('.') is False and one.startswith('~') is False:
+                        mycount += 1
                 myname = each
                 mytime = time.strftime('%y-%m-%d %H:%M:%S', time.localtime(os.path.getmtime(mypath)))
                 mysize = '-'
-                data['dirs'].append({'name': myname, 'time': mytime, 'size': mysize, 'path': file_path})
+                data['dirs'].append({'name': myname, 'time': mytime, 'size': mysize, 'path': file_path, 'mycount': mycount})
 
             elif os.path.isfile(mypath):
                 myname = each
