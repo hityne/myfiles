@@ -129,7 +129,6 @@ def stream_video(request, path):
     """ responds to the video file as """
     # path = 'static/media/show.mp4'  # 此为我的视频路径
     path = os.path.join('./myrepo/', path)
-    print(path)
     range_header = request.META.get('HTTP_RANGE', '').strip()
     range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
     range_match = range_re.match(range_header)
@@ -137,6 +136,7 @@ def stream_video(request, path):
     content_type, encoding = mimetypes.guess_type(path)
     content_type = content_type or 'application/octet-stream'
     if range_match:
+        print("这里是StreamingHttpResponse")
         first_byte, last_byte = range_match.groups()
         if first_byte:
             first_byte = int(first_byte)
@@ -151,6 +151,7 @@ def stream_video(request, path):
         resp['Content-Length'] = str(length)
         resp['Content-Range'] = 'bytes %s-%s/%s' % (first_byte, last_byte, size)
     else:
+        print("这里是FileWrapper")
         # When the video stream is not obtained, the entire file is returned in the generator mode to save memory.
         resp = StreamingHttpResponse(FileWrapper(open(path, 'rb')), content_type=content_type)
         resp['Content-Length'] = str(size)

@@ -1,7 +1,7 @@
 from django.urls import path, re_path, include
 from . import views
-from django.views.static import serve
-from myfiles import settings
+# from django.views.static import serve
+# from myfiles import settings
 
 urlpatterns = [
     # path('', views.index),
@@ -15,11 +15,12 @@ urlpatterns = [
     # re_path(r'^(?P<path>.+\.png)', serve, {"document_root":settings.REPO_ROOT}),
     # re_path(r'^(?P<path>.+\.pdf)', serve, {"document_root":settings.REPO_ROOT}),
     # re_path(r'^(?P<path>.+\.txt)', serve, {"document_root":settings.REPO_ROOT}),
-    re_path(r'^(?P<path>.+\.mp4)$', views.stream_video),
-    re_path(r'^(?P<path>.+\.mkv)$', views.stream_video),
-    re_path(r'^(?P<path>.+\.flv)$', views.stream_video),
-    re_path(r'^(?P<path>.+\.m3u8)$', views.stream_video),
-    re_path(r'^(?P<path>.+\..+)$', serve, {"document_root": settings.REPO_ROOT}),
+    # re_path(r'^(?P<path>.+\.mp4)$', views.stream_video),
+    # re_path(r'^(?P<path>.+\.mkv)$', views.stream_video),
+    # re_path(r'^(?P<path>.+\.flv)$', views.stream_video),
+    # re_path(r'^(?P<path>.+\.m3u8)$', views.stream_video),
+    # re_path(r'^(?P<path>.+\..+)$', serve, {"document_root": settings.REPO_ROOT}),
+    re_path(r'^(?P<path>.+\..+)$', views.stream_video),
     re_path(r'^(.*)$', views.deep),
 
 ]
