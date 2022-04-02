@@ -17,7 +17,7 @@
 		
 
 
-        {% if file_type == 'flv' %}
+        {% if file_type == 'flv222' %}
 
             <div style="width: 100%; height: 500px;max-width: 800px;margin:0 auto;">
 
@@ -32,7 +32,7 @@
         if (flvjs.isSupported()) {
             var flvPlayer = flvjs.createPlayer({
                 type: 'flv',
-                "isLive": true,//<====加个这个
+                //"isLive": true,//<====加个这个
                 url: '{{ file_path }}',//<==自行修改
 
             });
@@ -65,8 +65,33 @@
 			var videoObject = {
 				container: '#myvideo', //视频容器
             {% if file_type == 'm3u8' %} plug:'hls.js', {% endif %}
+            {% if file_type == 'flv' %} plug:'flv.js', {% endif %}
 				//poster:'/video/poster.png',//封面图片
-				video:'{{file_path}}'//视频地址
+				video:'{{file_path}}',//视频地址
+                rightBar:true,
+				screenshot:true,
+				smallWindows:true,
+				playbackrateOpen:true,
+				controls:true,
+				webFull:true,
+            {% if file_type == 'flv'%}timeScheduleAdjust:1, {% endif %}
+
+            track:[
+					{
+						kind:'subtitles',
+						src:'/video/zh.vtt',
+						srclang:'zh',
+						label:'中文',
+						default:false,
+					},
+					{
+						kind:'subtitles',
+						src:'/video/en.vtt',
+						srclang:'en',
+						label:'English',
+						default:false,
+					}
+				],
 			};
 			var player=new ckplayer(videoObject)//调用播放器并赋值给变量player
 			/*
