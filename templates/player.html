@@ -7,6 +7,7 @@
 		<!--
 			如果需要使用其它语言，请在此处引入相应的js,比如:<script type="text/javascript" src="ckplayer/language/en.js" charset="UTF-8"></script>
 		-->
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
 		<script type="text/javascript" src="/static/ckplayer/js/ckplayer.min.js" charset="UTF-8"></script>
 
     {% if  file_type == 'm3u8' %}<script type="text/javascript" src="/static/ckplayer/hls.js/hlsmin.js"></script>{% endif %}
@@ -57,8 +58,14 @@
 
        {% else %}
 
-            <div  id="myvideo" style="width: 100%; height: 500px;max-width: 800px;margin:0 auto;">播放容器</div>
+            <div class="layui-container" style="width: 100%;">
+		  	<div class="layui-row">
 
+<div class="layui-col-lg12">
+            <div  id="myvideo" style="width: 100%; height: 500px;max-width: 800px;margin:auto;">播放容器</div>
+</div>
+            </div>
+            </div>
 
 		<script>
 			//调用开始
