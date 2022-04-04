@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="width: 100%; height: 500px;max-width: 800px;margin:0 auto;">
+
+             <video id="videoElement" style="display: block; width: 100%; height: 100%; margin-left: auto; margin-right: auto;  " controls>Your browser is too old which doesn't support HTML5 video.</video>
+
+            </div>
+
+<script type="text/javascript" src="/static/ckplayer/flv.js/flv.min.js"></script>
+
+           <script>
+        var player = document.getElementById('videoElement');
+        if (flvjs.isSupported()) {
+            var flvPlayer = flvjs.createPlayer({
+                type: 'flv',
+                //"isLive": true,//<====加个这个
+                url: '{{ file_path }}',//<==自行修改
+
+            });
+
+            flvPlayer.attachMediaElement(videoElement);
+            flvPlayer.load(); //加载
+            // flv_start();
+        }
+            function flv_start() {
+            player.play();
+        }        function flv_pause() {
+            player.pause();
+        }        function flv_destroy() {
+            player.pause();
+            player.unload();
+            player.detachMediaElement();
+            player.destroy();
+            player = null;
+        }        function flv_seekto() {
+            player.currentTime = parseFloat(document.getElementsByName('seekpoint')[0].value);
+        }    </script>
+
+</body>
+</html>
